@@ -49,8 +49,9 @@ var CartoDB_Voyager = L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles
 	subdomains: 'abcd',
 	maxZoom: 19
 });
+//TILE LAYER----------------------------
 
-
+//CHANGE MAP TILES----------------------
 function getCookieTiles() {
     let cookieTiles = Cookies.get('tiles');
     if (cookieTiles == undefined) {
@@ -212,4 +213,4 @@ function changeMapTiles() {
             break;
     }
 }
-//TILE LAYER----------------------------
+//CHANGE MAP TILES----------------------

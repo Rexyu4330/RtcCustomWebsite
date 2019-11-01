@@ -127,14 +127,45 @@ var black3 = L.icon({
 });
 var black = [black0,black1,black2,black3];
 
-var iconArret = L.icon({
-    iconUrl: IconFolder + 'stop.png',
+var iconArretBlue = L.icon({
+    iconUrl: IconFolder + 'stop0.png',
     
     iconSize:     [12.12], // size of the icon
     iconAnchor:   [6, 6], // point of the icon which will correspond to marker's location
     popupAnchor:  [0, -6] // point from which the popup should open relative to the iconAnchor
 });
 
+var iconArretRed = L.icon({
+    iconUrl: IconFolder + 'stop1.png',
+    
+    iconSize:     [12.12], // size of the icon
+    iconAnchor:   [6, 6], // point of the icon which will correspond to marker's location
+    popupAnchor:  [0, -6] // point from which the popup should open relative to the iconAnchor
+});
+
+var iconArretGreen = L.icon({
+    iconUrl: IconFolder + 'stop4.png',
+    
+    iconSize:     [12.12], // size of the icon
+    iconAnchor:   [6, 6], // point of the icon which will correspond to marker's location
+    popupAnchor:  [0, -6] // point from which the popup should open relative to the iconAnchor
+});
+
+var iconArretBlack = L.icon({
+    iconUrl: IconFolder + 'stop6.png',
+    
+    iconSize:     [12.12], // size of the icon
+    iconAnchor:   [6, 6], // point of the icon which will correspond to marker's location
+    popupAnchor:  [0, -6] // point from which the popup should open relative to the iconAnchor
+});
+
+var iconArret = {
+    0: iconArretBlue,
+    3: iconArretBlue,
+    1: iconArretRed,
+    4: iconArretGreen,
+    6: iconArretBlack
+}
 
 var Icons = {
     0: blue,

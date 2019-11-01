@@ -50,7 +50,7 @@ function updateMarkers(data) {
                     <br>
                     Direction Principale: ${busInformations.descriptionDirectionPrincipale}<br>
                     Direction de Retour: ${busInformations.descriptionDirectionRetour}<br>
-                    <a id="showRoute" bus="${data[x].bus}" dir="${data[x].dir}" onclick="showRoute(${data[x].bus},${data[x].dir})" href="#">Montrer la route</a>`);
+                    <a id="showRoute" bus="${data[x].bus}" dir="${data[x].dir}" onclick="showRoute(${data[x].bus},${data[x].dir},${busInformations.codeTypeService})" href="#">Montrer la route</a>`);
                 a.idAutobus = bus.idAutobus;
                 a.busNbr = data[x].bus;
                 a.busDir = data[x].dir;
