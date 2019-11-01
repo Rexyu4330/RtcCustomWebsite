@@ -1,0 +1,158 @@
+var routes =
+[[ 'route_id',
+    'agency_id',
+    'route_short_name',
+    'route_long_name',
+    'route_desc',
+    'route_type',
+    'route_url',
+    'route_color',
+    'route_text_color' ],
+  [ '175801',
+    'RTC',
+    '580',
+    '',
+    'Sainte-Foy Centre - L\'Ancienne-Lorette',
+    '3',
+    'http://www.rtcquebec.ca/Default.aspx?tabid=95&noParcours=580',
+    'E04503',
+    '000000' ],
+  [ '175811',
+    'RTC',
+    '581',
+    '',
+    'Lebourgneuf / Sainte-Foy Centre - Lebourgneuf / Neufchâtel',
+    '3',
+    'http://www.rtcquebec.ca/Default.aspx?tabid=95&noParcours=581',
+    'E04503',
+    '000000' ],
+  [ '175821',
+    'RTC',
+    '582',
+    '',
+    'Lebourgneuf / Sainte-Foy Centre - Lebourgneuf / Saint-Émile',
+    '3',
+    'http://www.rtcquebec.ca/Default.aspx?tabid=95&noParcours=582',
+    'E04503',
+    '000000' ],
+  [ '175841',
+    'RTC',
+    '584',
+    '',
+    'Sainte-Foy Centre - Loretteville',
+    '3',
+    'http://www.rtcquebec.ca/Default.aspx?tabid=95&noParcours=584',
+    'E04503',
+    '000000' ],
+  [ '179990',
+    'RTC',
+    '999',
+    '',
+    'null - null',
+    '3',
+    'http://www.rtcquebec.ca/Default.aspx?tabid=95&noParcours=999',
+    '013888',
+    'FFFFFF' ],
+  [ '173821',
+    'RTC',
+    '382',
+    '',
+    'Univ.Laval/Cégep Garneau - Saint-Émile',
+    '3',
+    'http://www.rtcquebec.ca/Default.aspx?tabid=95&noParcours=382',
+    'E04503',
+    '000000' ],
+  [ '173841',
+    'RTC',
+    '384',
+    '',
+    'Univ.Laval/Cégep Garneau - Loretteville',
+    '3',
+    'http://www.rtcquebec.ca/Default.aspx?tabid=95&noParcours=384',
+    'E04503',
+    '000000' ]]
+
+
+data
+[
+{
+  "bus":803,
+  "dir":2,
+  "listBus":[  
+	 {  
+		"idAutobus":11304,
+		"latitude":46.8363,
+		"longitude":-71.29118,
+		"etatProgression":"2",
+		"idVoyage":"2303",
+		"dateMiseJour":"2019-07-25T22:29:33"
+	 },
+	 {  
+		"idAutobus":11318,
+		"latitude":46.81158,
+		"longitude":-71.3215,
+		"etatProgression":"0",
+		"idVoyage":"2063",
+		"dateMiseJour":"2019-07-25T22:29:33"
+	 },
+	 {  
+		"idAutobus":11512,
+		"latitude":46.8499,
+		"longitude":-71.2215,
+		"etatProgression":"1",
+		"idVoyage":"2312",
+		"dateMiseJour":"2019-07-25T22:29:33"
+	 }
+  ]
+},
+{  
+  "bus":800,
+  "dir":3,
+  "listBus":[  
+	 {  
+		"idAutobus":10960,
+		"latitude":46.79502,
+		"longitude":-71.2431,
+		"etatProgression":"1",
+		"idVoyage":"3648",
+		"dateMiseJour":"2019-07-25T22:29:43"
+	 },
+	 {  
+		"idAutobus":10962,
+		"latitude":46.89158,
+		"longitude":-71.14918,
+		"etatProgression":"0",
+		"idVoyage":"3742",
+		"dateMiseJour":"2019-07-25T22:29:33"
+	 },
+	 {  
+		"idAutobus":10970,
+		"latitude":46.76326,
+		"longitude":-71.31654,
+		"etatProgression":"1",
+		"idVoyage":"3242",
+		"dateMiseJour":"2019-07-25T22:29:43"
+	 },
+	 {  
+		"idAutobus":10973,
+		"latitude":46.85206,
+		"longitude":-71.20542,
+		"etatProgression":"1",
+		"idVoyage":"3339",
+		"dateMiseJour":"2019-07-25T22:28:33"
+	 },
+	 {  
+		"idAutobus":11268,
+		"latitude":46.81278,
+		"longitude":-71.22534,
+		"etatProgression":"1",
+		"idVoyage":"3431",
+		"dateMiseJour":"2019-07-25T22:29:33"
+	 }
+  ]
+}
+]
+
+
+
+var listChecked = ["800,2","800,3"];

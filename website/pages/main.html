@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>RtcV2</title>
+        <meta charset="utf-8">
+        <link rel="stylesheet" type="text/css" href="../style.css">
+        <link rel="stylesheet" href="../leaflet/leaflet.css" />
+        <script src="../leaflet/leaflet.js"></script>
+        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+        
+    </head>
+    <body>
+        <div id="debug">
+            <button id="removeRoute">Cacher la route</button>
+            <button id="moveMarkers">Force move</button>
+            <button id="deleteLines">Remove Line</button>
+            <button id="deleteMarkers">Remove Markers</button>
+            <button id="test">Test</button>
+            <button id="show">Show</button>
+            <button id="hide">Hide</button>
+            <select id="mySelect" onchange="changeMapTiles()">
+                <option value="Roads">Roads</option>
+                <option value="HOT">HOT</option>
+                <option value="Mapnik">Mapnik</option>
+                <option value="DE">DE</option>
+                <option value="TonerLite">TonerLite</option>
+                <option value="WorldStreetMap">WorldStreetMap</option>
+                <option value="WorldImagery">WorldImagery</option>
+                <option value="NatGeoWorldMap">NatGeoWorldMap</option>
+                <option value="Positron">Positron</option>
+                <option value="DarkMatter">DarkMatter</option>
+                <option value="Voyager">Voyager</option>
+            </select>
+        </div>
+        <div id="layers">
+            <div id="busCheck">
+                <ul id="Type0">
+                    <li><label for="Bus">Bus</label><input id="checkboxBus" onclick="checkboxBus()" type="checkbox" name="Bus"></li>
+                </ul>
+                <ul id="Type1">
+                    <li><label for="Express">Express</label><input id="checkboxExpress" onclick="checkboxExpress()" type="checkbox" name="Express"></li>
+                </ul>
+                <ul id="Type4">
+                    <li><label for="MetroBus">MetroBus</label><input id="checkboxMetroBus" onclick="checkboxMetroBus()" type="checkbox" name="MetroBus"></li>
+                </ul>
+                <ul id="Type6">
+                    <li><label for="NightBus">NightBus</label><input id="checkboxNightBus" onclick="checkboxNightBus()" type="checkbox" name="NightBus"></li>
+                </ul>
+                <ul id="Type2">
+                    <li><label for="Autre">Autre</label><input id="checkboxAutre" onclick="checkboxAutre()" type="checkbox" name="Autre"></li>
+                </ul>
+            </div>
+        </div>
+        <div id="mapid"></div>
+        <!--Javascpir-->
+        <script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
+        <script src="../js/loadmap.js"></script>
+        <script src="../js/makeIcons.js"></script>
+        <script src="../js/listBuses.js"></script>
+        <script src="../js/groupPointsVente.js"></script>
+        <script src="../js/mainBusMarkers.js"></script>
+        <script src="../js/showRoute.js"></script>
+        <script src="../js/buttonControl.js"></script>
+        <!--Javascpir-->
+    </body>
+</html>
