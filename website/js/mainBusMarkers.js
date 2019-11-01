@@ -3,7 +3,7 @@ axios.post("/busListJson").then(function(response) {
     //console.log("Bus pos", busListJson);
 }).catch(function (error) {console.log(error)});
 
-var markerList = [];
+var listMarkersBus = [];
 var polyline = [];
 
 function getData() {
@@ -16,10 +16,10 @@ function getData() {
 
 
 function findMarkerById(id) {
-    for (z in markerList) {
-        if (markerList[z].idAutobus == id) {
-            ////console.log(markerList[z], id);
-            return markerList[z]
+    for (z in listMarkersBus) {
+        if (listMarkersBus[z].idAutobus == id) {
+            ////console.log(listMarkersBus[z], id);
+            return listMarkersBus[z]
         }
     }
 }
@@ -58,7 +58,7 @@ function updateMarkers(data) {
                 a.toDelete = 0;
                 a.polyline = [];
                 a.addTo(mymap);
-                markerList.push(a);
+                listMarkersBus.push(a);
                 console.log("New Marker", a);
             } else {
                 let oldLatLng = markerToMove.getLatLng();
@@ -79,18 +79,18 @@ function updateMarkers(data) {
             }
         }
     }
-    console.log(markerList);
+    console.log(listMarkersBus);
     removeUselessMarkers(data);
 }
 
 var listMarkerToDelete = [];
 function removeUselessMarkers(data) {
     //Find bus to delete
-    for (x in markerList) { //For each marker
+    for (x in listMarkersBus) { //For each marker
         var found = false;
         for (z in data) { //Search in all bus for the id of the marker
             for (y in data[z].listBus) {
-                if (data[z].listBus[y].idAutobus == markerList[x].idAutobus) { //If the bus exist
+                if (data[z].listBus[y].idAutobus == listMarkersBus[x].idAutobus) { //If the bus exist
                     console.log("Found");
                     var found = true;
                 }
@@ -99,24 +99,24 @@ function removeUselessMarkers(data) {
         //After search in all buses, if the marker is not linked to a bus anymore, delete
         if (found == false) {
             console.log("Not found")
-            if (markerList[x].toDelete > 1) {
-                listMarkerToDelete.push(markerList[x].idAutobus); //Push the position of the marker in the list to delete
+            if (listMarkersBus[x].toDelete > 1) {
+                listMarkerToDelete.push(listMarkersBus[x].idAutobus); //Push the position of the marker in the list to delete
             } else {
-                markerList[x].toDelete += 1;
-                console.log(markerList[x].toDelete, markerList[x].idAutobus);
+                listMarkersBus[x].toDelete += 1;
+                console.log(listMarkersBus[x].toDelete, listMarkersBus[x].idAutobus);
             }
         }
     }
     //For each id in the listMarkerToDelete
     for (q in listMarkerToDelete) { //ex: listMarkerToDelete[q] == 11560, it's the id of the markerToDelete
-        for (z in markerList) { //find the marker to delete
-            if (markerList[z].idAutobus == listMarkerToDelete[q]) {
-                console.log("Removed Marker", markerList[z])
-                for (y in markerList[z].polyline) {
-                    markerList[z].polyline[y].remove();
+        for (z in listMarkersBus) { //find the marker to delete
+            if (listMarkersBus[z].idAutobus == listMarkerToDelete[q]) {
+                console.log("Removed Marker", listMarkersBus[z])
+                for (y in listMarkersBus[z].polyline) {
+                    listMarkersBus[z].polyline[y].remove();
                 }
-                markerList[z].remove();
-                markerList.splice(z, 1);
+                listMarkersBus[z].remove();
+                listMarkersBus.splice(z, 1);
             }
         }
     }
@@ -125,21 +125,21 @@ function removeUselessMarkers(data) {
 }
 
 function removePolyline() {
-    for (x in markerList) {
-        for (y in markerList[x].polyline) {
-            markerList[x].polyline[y].remove();
+    for (x in listMarkersBus) {
+        for (y in listMarkersBus[x].polyline) {
+            listMarkersBus[x].polyline[y].remove();
         }
     }
 }
 
 function removeMarkers() {
-    for (x in markerList) {
-        for (y in markerList[x].polyline) {
-            markerList[x].polyline[y].remove();
+    for (x in listMarkersBus) {
+        for (y in listMarkersBus[x].polyline) {
+            listMarkersBus[x].polyline[y].remove();
         }
-        markerList[x].remove();
+        listMarkersBus[x].remove();
     }
-    markerList = [];
+    listMarkersBus = [];
 }
 
 getData();

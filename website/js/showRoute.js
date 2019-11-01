@@ -2,13 +2,13 @@ function showRoute(bus, dir, codeType) {
     //Remove old route
     hideRoute()
     axios.get(`https://wsmobile.rtcquebec.ca/api/v3/horaire/ListeArret_Parcours?source=sitemobile&noParcours=${bus}&codeDirection=${dir}`).then(response => {
-        makeStopsMarkers(response.data, bus, dir, codeType);
+        makeStopsMarkers(bus, dir, codeType, response.data);
     }).catch(error => {});
 }
 
 var listMarkersArrets = [];
 
-function makeStopsMarkers(listeArret, bus, dir, codeType) {
+function makeStopsMarkers(bus, dir, codeType, listeArret) {
     console.log(listeArret);
     for (x in listeArret) {
         listeArret[x]
@@ -19,6 +19,7 @@ function makeStopsMarkers(listeArret, bus, dir, codeType) {
         m.bindPopup(`${listeArret[x].description}, ${listeArret[x].noArret}`);
         m.bus = bus;
         m.dir = dir;
+        m.codeType = codeType;
         
         m.addTo(mymap);
         listMarkersArrets.push(m);

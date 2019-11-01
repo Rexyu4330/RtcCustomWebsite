@@ -1715,8 +1715,8 @@ function getBusList() {
                 }
                 ]
     console.log("SET")
-    sendBusListJson();
-    sendBusListHtml();
+    sendBusListJson(); //Send bus information
+    sendBusListHtml(); //Send bus list for checkbox 
     setupBus();
 }
 function sendBusListJson() {
@@ -1727,17 +1727,18 @@ function sendBusListJson() {
     })
 }
 function sendBusListHtml() {
-    let dataToSend = {};
-    dataToSend.type0 = "";
-    dataToSend.type1 = "";
-    dataToSend.type4 = "";
-    dataToSend.type6 = "";
-    dataToSend.type2 = "";
+    let dataToSend = {
+        type0: '',
+        type1: '',
+        type4: '',
+        type6: '',
+        type2: ''
+    };
     for (x in routes) {
-        for (var i = 0; i <= 1; i++) {
-            if (i == 0) {
+        for (var i = 0; i <= 1; i++) { //Create two checkbox because there is two line with the same name
+            if (i == 0) { //Direction Principale
                 var text = `<input type="checkbox" onclick="reload()" class="busCheck" name="${routes[x].description}" value="${routes[x].noParcours},${routes[x].codeDirectionPrincipale}"><label for="${routes[x].description}"><em>${routes[x].noParcours}</em> vers <em>${routes[x].descriptionDirectionPrincipale}</em><br></label>`
-            } else if (i == 1) {
+            } else if (i == 1) { //Direction de Retour
                 var text = `<input type="checkbox" onclick="reload()" class="busCheck" name="${routes[x].description}" value="${routes[x].noParcours},${routes[x].codeDirectionRetour}"><label for="${routes[x].description}"><em>${routes[x].noParcours}</em> vers <em>${routes[x].descriptionDirectionRetour}</em><br></label>`
             }
             switch (routes[x].codeTypeService) {
@@ -1806,17 +1807,15 @@ function setupBus() {
 
 
 var compteur = 0;
-function getBusPos(busNbr, dir){
-    axios.get(`https://wsmobile.rtcquebec.ca/api/v3//horaire/ListeAutobus_Parcours?source=sitemobile&noParcours=${busNbr}&codeDirection=${dir}`).then(response => {
+function getBusPos(bus, dir){
+    axios.get(`https://wsmobile.rtcquebec.ca/api/v3//horaire/ListeAutobus_Parcours?source=sitemobile&noParcours=${bus}&codeDirection=${dir}`).then(response => {
         compteur++;
-        callback(busNbr, dir, response.data);
+        callback(bus, dir, response.data);
     }).catch(error => {});
 }
-function callback(busNbr, dir, data) {
-    var line = JSON.parse(`{ "bus":${busNbr}, "dir":${dir}, "listBus":${JSON.stringify(data)} }`);
-    ////console.log(line);
+function callback(bus, dir, data) {
+    var line = JSON.parse(`{ "bus":${bus}, "dir":${dir}, "listBus":${JSON.stringify(data)} }`);
     positions.push(line);
-    ////console.log("Compteur:", compteur);
     sendData();
 }
 
@@ -1833,9 +1832,7 @@ function sendData() {
                 res.send(positions);
                 console.log("Sent")
             }
-            //console.log(positions);
         })
-        //positions = [];
     }
 }
 
