@@ -34,8 +34,8 @@ node index.js
 
 ## Based on/with
 
-[RTC Nomade](https://m.rtcquebec.ca/) - app by [Cortex](https://cortexstudio.com/fr/agence-digitale/application-mobile-hybride)
-[Leaflet](https://leafletjs.com/) - Javascript library for interactive maps
+* [RTC Nomade](https://m.rtcquebec.ca/) - app by [Cortex](https://cortexstudio.com/fr/agence-digitale/application-mobile-hybride)
+* [Leaflet](https://leafletjs.com/) - Javascript library for interactive maps
 
 
 ## License
