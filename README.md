@@ -6,12 +6,29 @@ Un petit site web qui prend la position des bus du RTC et les affiche sur une ma
 
 Nodejs
 
+dependencies:
 ```
 axios
 body-parser
 express
 fs
 papaparse
+```
+
+## How to install
+
+Clone directory,
+
+Install Nodejs and npm,
+
+Run command in directory to get dependencies
+```
+npm install
+```
+
+To start server:
+```
+node index.js
 ```
 
 
