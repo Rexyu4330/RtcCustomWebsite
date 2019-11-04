@@ -20,15 +20,14 @@ function makeStopsMarkers(bus, dir, codeType, listeArret) {
         m.bus = bus;
         m.dir = dir;
         m.codeType = codeType;
-	
         
         m.addTo(mymap);
         listMarkersArrets.push(m);
-	//Testing zone on mobile
-	console.log('test');
-	/*m.on('popupopen', function(ev) {
-            console.log('IT WORKS');
-	}*/
+        //Testing zone on mobile
+        console.log('test');
+        /*m.on('popupopen', function(ev) {
+                console.log('IT WORKS');
+        }*/
     }
 }
 
