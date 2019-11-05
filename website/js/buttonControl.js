@@ -1,5 +1,21 @@
+mymap.addEventListener('popupopen', function(event) {
+    ////console.log(event);
+    if (event.popup._source.markerType === 'arret') {
+        getWaitingTime(event.popup, event.popup.getContent());
+    } else if (event.popup._source.markerType === 'bus') { //Allow bus following (to change)
+        follow = true;
+    }
+});
+
+mymap.addEventListener('popupclose', function(event) {
+    ////console.log(event);
+    if (event.popup._source.markerType === 'bus') {  //Don't allow bus following (to change)
+        follow = false;
+    }
+});
+
 document.getElementById("removeRoute").addEventListener("click", hideRoute);
-document.getElementById("moveMarkers").addEventListener("click", getData);
+document.getElementById("moveMarkers").addEventListener("click", getBusPositionFromServer);
 document.getElementById("deleteLines").addEventListener("click", removePolyline);
 document.getElementById("deleteMarkers").addEventListener("click", removeMarkers);
 document.getElementById("test").addEventListener("click", test);

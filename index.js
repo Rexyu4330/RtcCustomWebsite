@@ -1785,12 +1785,12 @@ app.post("/oldChecked/",  (req, res)=>{
     res.send(listChecked)
 })
 
-var oldPositions = [];
-var positions = [];
+var oldBusPosition = [];
+var busPosition = [];
 //Get bus position
 function setupBus() {
-    oldPositions = positions;
-    positions = [];
+    oldBusPosition = busPosition;
+    busPosition = [];
     for (z in routes) {
         for (y in listChecked) { //Get bus from the checked box on website
             let c = listChecked[y].split(","); //ex: ["800, 2"]
@@ -1815,7 +1815,7 @@ function getBusPos(bus, dir){
 }
 function callback(bus, dir, data) {
     var line = JSON.parse(`{ "bus":${bus}, "dir":${dir}, "listBus":${JSON.stringify(data)} }`);
-    positions.push(line);
+    busPosition.push(line);
     sendData();
 }
 
@@ -1824,12 +1824,12 @@ function sendData() {
         compteur = 0;
         console.log("Reloaded")
         //SEND-------
-        app.post("/position/",  (req, res)=>{
-            if (positions == []) {
-                res.send(oldPositions);
+        app.post("/busPosition/",  (req, res)=>{
+            if (busPosition == []) {
+                res.send(oldBusPosition);
                 console.log("Sent Old")
             }else {
-                res.send(positions);
+                res.send(busPosition);
                 console.log("Sent")
             }
         })

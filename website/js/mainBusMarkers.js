@@ -1,16 +1,15 @@
 axios.post("/busListJson").then(function(response) {
     busListJson = response.data;
-    //console.log("Bus pos", busListJson);
+    ////console.log("Bus pos", busListJson);
 }).catch(function (error) {console.log(error)});
 
 var listMarkersBus = [];
 var polyline = [];
 
-function getData() {
-    axios.post("/position").then(function(response) {
-        let pos = response.data;
-        console.log("getData", pos);
-        updateMarkers(pos)
+function getBusPositionFromServer() {
+    axios.post("/busPosition").then(function(response) {
+        console.log("get: ", response.data);
+        updateMarkers(response.data)
     }).catch(function (error) {console.log(error)});
 }
 
@@ -50,11 +49,13 @@ function updateMarkers(data) {
                     <br>
                     Direction Principale: ${busInformations.descriptionDirectionPrincipale}<br>
                     Direction de Retour: ${busInformations.descriptionDirectionRetour}<br>
-                    <a id="showRoute" bus="${data[x].bus}" dir="${data[x].dir}" onclick="showRoute(${data[x].bus},${data[x].dir},${busInformations.codeTypeService})" href="#">Montrer la route</a>`);
+                    <a onclick="showRoute(${data[x].bus},${data[x].dir},${busInformations.codeTypeService})" href="#">Montrer la route</a><br>
+                    <a onclick="followBus(${bus.idAutobus})" href="#">Suivre la bus</a>`);
                 a.idAutobus = bus.idAutobus;
                 a.busNbr = data[x].bus;
                 a.busDir = data[x].dir;
                 a.codeType = busInformations.codeTypeService;
+                a.markerType = 'bus';
                 a.toDelete = 0;
                 a.polyline = [];
                 a.addTo(mymap);
@@ -79,7 +80,7 @@ function updateMarkers(data) {
             }
         }
     }
-    console.log(listMarkersBus);
+    ////console.log(listMarkersBus);
     removeUselessMarkers(data);
 }
 
@@ -91,19 +92,19 @@ function removeUselessMarkers(data) {
         for (z in data) { //Search in all bus for the id of the marker
             for (y in data[z].listBus) {
                 if (data[z].listBus[y].idAutobus == listMarkersBus[x].idAutobus) { //If the bus exist
-                    console.log("Found");
+                    ////console.log("Found");
                     var found = true;
                 }
             }
         }
         //After search in all buses, if the marker is not linked to a bus anymore, delete
         if (found == false) {
-            console.log("Not found")
+            ////console.log("Not found")
             if (listMarkersBus[x].toDelete > 1) {
                 listMarkerToDelete.push(listMarkersBus[x].idAutobus); //Push the position of the marker in the list to delete
             } else {
                 listMarkersBus[x].toDelete += 1;
-                console.log(listMarkersBus[x].toDelete, listMarkersBus[x].idAutobus);
+                ////console.log(listMarkersBus[x].toDelete, listMarkersBus[x].idAutobus);
             }
         }
     }
@@ -120,7 +121,7 @@ function removeUselessMarkers(data) {
             }
         }
     }
-    console.log(listMarkerToDelete);
+    ////console.log(listMarkerToDelete);
     listMarkerToDelete = [];
 }
 
@@ -142,5 +143,5 @@ function removeMarkers() {
     listMarkersBus = [];
 }
 
-getData();
-setInterval(getData,1500);
+getBusPositionFromServer();
+setInterval(getBusPositionFromServer,1500);
