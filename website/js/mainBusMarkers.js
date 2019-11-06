@@ -1,11 +1,10 @@
 axios.post("/busListJson").then(function(response) {
     busListJson = response.data;
-    ////console.log("Bus pos", busListJson);
+    ////console.log("Bus list", busListJson);
     getBusPositionFromServer();
 }).catch(function (error) {console.log(error)});
 
 var listMarkersBus = [];
-var polyline = [];
 
 function getBusPositionFromServer() {
     axios.post("/busPosition").then(function(response) {
@@ -16,13 +15,9 @@ function getBusPositionFromServer() {
 
 
 function findMarkerById(id) {
-    for (z in listMarkersBus) {
-        if (listMarkersBus[z].idAutobus == id) {
-            ////console.log(listMarkersBus[z], id);
-            return listMarkersBus[z]
-        }
-    }
+    return listMarkersBus.filter(marker => marker.idAutobus == id)[0]
 }
+
 
 function updateMarkers(data) {
     for (x in data) {
@@ -47,6 +42,7 @@ function updateMarkers(data) {
                 });
                 //POPUP **************************************************
                 a.bindPopup(`${data[x].bus} ${busInformations.description} vers ${descriptionDirection}<br>
+                    ID: ${bus.idAutobus}<br>
                     <br>
                     Direction Principale: ${busInformations.descriptionDirectionPrincipale}<br>
                     Direction de Retour: ${busInformations.descriptionDirectionRetour}<br>
@@ -58,26 +54,29 @@ function updateMarkers(data) {
                 a.codeType = busInformations.codeTypeService;
                 a.markerType = 'bus';
                 a.toDelete = 0;
-                a.polyline = [];
+                a.polyline = L.layerGroup();
                 a.addTo(mymap);
                 listMarkersBus.push(a);
                 console.log("New Marker", a);
             } else {
+                //Move marker
                 let oldLatLng = markerToMove.getLatLng();
                 let newLatLng = [bus.latitude,bus.longitude];
 
                 let latlngs = [oldLatLng,newLatLng];
-                if (oldLatLng.lat != newLatLng[0] || oldLatLng.lng != newLatLng[1]) { //Si il y a des nouvelles coordonnees
-                    let c = L.polyline(latlngs, {color: colorLines[markerToMove.codeType], opacity: 0.8}).addTo(mymap);
-                    markerToMove.polyline.push(c);
+                if (oldLatLng.lat != newLatLng[0] || oldLatLng.lng != newLatLng[1]) { //If bus has moved
+                    let c = L.polyline(latlngs, {color: polylineColors[markerToMove.codeType], opacity: 0.8}).addTo(mymap);
+                    markerToMove.polyline.addLayer(c);
                 }
-                if (markerToMove.polyline.length > 10) { //LINE LENGTH
-                    markerToMove.polyline[0].remove();
-                    markerToMove.polyline.shift();
+                if (markerToMove.polyline.getLayers().length > 10) { //LINE LENGTH
+                    //Remove oldest line
+                    markerToMove.polyline.getLayers()[0].remove();
+                    markerToMove.polyline.removeLayer(markerToMove.polyline.getLayers()[0]);
                 }
 
                 markerToMove.setOpacity(0.5);
                 markerToMove.setLatLng(newLatLng);
+                //MOVE MAP VIEW IF LOCKED ***************************************************
             }
         }
     }
@@ -85,7 +84,6 @@ function updateMarkers(data) {
     removeUselessMarkers(data);
 }
 
-var listMarkerToDelete = [];
 function removeUselessMarkers(data) {
     //Find bus to delete
     for (x in listMarkersBus) { //For each marker
@@ -101,44 +99,28 @@ function removeUselessMarkers(data) {
         //After search in all buses, if the marker is not linked to a bus anymore, delete
         if (found == false) {
             ////console.log("Not found")
-            if (listMarkersBus[x].toDelete > 1) {
-                listMarkerToDelete.push(listMarkersBus[x].idAutobus); //Push the position of the marker in the list to delete
+            if (listMarkersBus[x].toDelete > 2) { //Time to delete this marker
+                console.log("Removed Marker", listMarkersBus[x])
+                listMarkersBus[x].polyline.eachLayer(layer => layer.remove()); //Remove Polylines
+                listMarkersBus[x].remove(); //Remove bus marker from map
+                listMarkersBus.splice(x, 1); //Remove bus marker from array list
             } else {
                 listMarkersBus[x].toDelete += 1;
                 ////console.log(listMarkersBus[x].toDelete, listMarkersBus[x].idAutobus);
             }
         }
     }
-    //For each id in the listMarkerToDelete
-    for (q in listMarkerToDelete) { //ex: listMarkerToDelete[q] == 11560, it's the id of the markerToDelete
-        for (z in listMarkersBus) { //find the marker to delete
-            if (listMarkersBus[z].idAutobus == listMarkerToDelete[q]) {
-                console.log("Removed Marker", listMarkersBus[z])
-                for (y in listMarkersBus[z].polyline) {
-                    listMarkersBus[z].polyline[y].remove();
-                }
-                listMarkersBus[z].remove();
-                listMarkersBus.splice(z, 1);
-            }
-        }
-    }
-    ////console.log(listMarkerToDelete);
-    listMarkerToDelete = [];
 }
 
 function removePolyline() {
-    for (x in listMarkersBus) {
-        for (y in listMarkersBus[x].polyline) {
-            listMarkersBus[x].polyline[y].remove();
-        }
+    for (x in listMarkersBus) { //For each markers
+        listMarkersBus[x].polyline.eachLayer(layer => layer.remove()); //Remove each line from polyline group
     }
 }
 
 function removeMarkers() {
     for (x in listMarkersBus) {
-        for (y in listMarkersBus[x].polyline) {
-            listMarkersBus[x].polyline[y].remove();
-        }
+        listMarkersBus[x].polyline.eachLayer(layer => layer.remove()); //Remove each line from polyline group
         listMarkersBus[x].remove();
     }
     listMarkersBus = [];
