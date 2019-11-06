@@ -1,6 +1,7 @@
 # To do list
 
 * Use .some() to find unlinked bus instead of looping
+* Add markers on bus Terminal (Terminus)
 
 ## Ref
 
