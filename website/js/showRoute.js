@@ -18,7 +18,8 @@ function makeStopsMarkers(bus, dir, codeType, listeArret) {
             title: `${arret.nom}`,
             icon: iconArret[codeType]
         });
-        m.bindPopup(`${arret.description}, ${arret.noArret}`);
+        m.popupText = `${arret.description}, ${arret.noArret}`;
+        m.bindPopup(m.popupText);
         m.bus = bus;
         m.dir = dir;
         m.codeType = codeType;
@@ -41,20 +42,20 @@ function hideRoute() {
 
 
 //A METTRE DANS UN AUTRE FICHIER DE SCRIPT************************************************
-function getWaitingTime(popup, baseTextPopup) {
-    ////console.log(popup)
-    axios.get(`https://wsmobile.rtcquebec.ca/api/v3/horaire/BorneVirtuelle_ArretParcours?source=sitemobile&noArret=${popup._source.noArret}&noParcours=${popup._source.bus}&codeDirection=${popup._source.dir}`).then(response => {
-        printWaitingTime(popup, baseTextPopup, response.data);
-    }).catch(error => {});
+function getWaitingTime(popup) {
+    console.log(popup)
     if (popup.isOpen()) {
-        setTimeout(() => {getWaitingTime(popup, baseTextPopup)}, 10000);
+        axios.get(`https://wsmobile.rtcquebec.ca/api/v3/horaire/BorneVirtuelle_ArretParcours?source=sitemobile&noArret=${popup._source.noArret}&noParcours=${popup._source.bus}&codeDirection=${popup._source.dir}`).then(response => {
+            printWaitingTime(popup, response.data);
+        }).catch(error => {});
+        //setTimeout(() => {getWaitingTime(popup)}, 2000);
     }
 }
 
-function printWaitingTime(popup, baseTextPopup, arret) {
+function printWaitingTime(popup, arret) {
     console.log(arret);
-    popup.setContent(baseTextPopup);
-    for (w in arret.horaires) {
+    popup.setContent(popup._source.popupText);
+    for (w in arret.horaires) { //For each bus or time, add departure minutes
         popup.setContent(popup.getContent() + '<br>' + arret.horaires[w].departMinutes + ' min');
     }
 }

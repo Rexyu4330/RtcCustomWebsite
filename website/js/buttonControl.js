@@ -1,7 +1,7 @@
 mymap.addEventListener('popupopen', function(event) {
     ////console.log(event);
     if (event.popup._source.markerType === 'arret') {
-        getWaitingTime(event.popup, event.popup.getContent());
+        getWaitingTime(event.popup);
     } else if (event.popup._source.markerType === 'bus') { //Allow bus following (to change)
         follow = true;
     }

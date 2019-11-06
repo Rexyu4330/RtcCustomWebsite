@@ -1,6 +1,7 @@
 axios.post("/busListJson").then(function(response) {
     busListJson = response.data;
     ////console.log("Bus pos", busListJson);
+    getBusPositionFromServer();
 }).catch(function (error) {console.log(error)});
 
 var listMarkersBus = [];
@@ -143,5 +144,5 @@ function removeMarkers() {
     listMarkersBus = [];
 }
 
-getBusPositionFromServer();
+//getBusPositionFromServer(); Moved inside getBusListJson
 setInterval(getBusPositionFromServer,1500);
