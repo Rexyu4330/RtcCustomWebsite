@@ -2,23 +2,12 @@ mymap.addEventListener('popupopen', function(event) {
     ////console.log(event);
     if (event.popup._source.markerType === 'arret') {
         getWaitingTime(event.popup);
-    } else if (event.popup._source.markerType === 'bus') { //Allow bus following (to change)
-        follow = true;
-    }
-});
-
-mymap.addEventListener('popupclose', function(event) {
-    ////console.log(event);
-    if (event.popup._source.markerType === 'bus') {  //Don't allow bus following (to change)
-        follow = false;
     }
 });
 
 document.getElementById("removeRoute").addEventListener("click", hideRoute);
-document.getElementById("moveMarkers").addEventListener("click", getBusPositionFromServer);
-document.getElementById("deleteLines").addEventListener("click", removePolyline);
-document.getElementById("deleteMarkers").addEventListener("click", removeMarkers);
-document.getElementById("test").addEventListener("click", test);
+document.getElementById("getBusPositionFromServer").addEventListener("click", getBusPositionFromServer);
+document.getElementById("stopFollowing").addEventListener("click", stopFollowing);
 
 
 document.getElementById("checkboxBus").addEventListener("click", checkboxBus);
