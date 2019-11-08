@@ -1,10 +1,17 @@
 var follow = false;
+var markerToFollow = undefined;
+
 function followBus(id) {
-    let markerToFollow = findMarkerById(id)
-    let latlng = markerToFollow.getLatLng();
-    mymap.setView(latlng);
-    
-    if (follow) {
-        setTimeout(() => {followBus(id)}, 500);
-    }
+    follow = true;
+    markerToFollow = findMarkerById(id)
+    mymap.dragging.disable();
+    mymap.scrollWheelZoom.disable();
+    document.getElementById('stopFollowing').style = 'display: block';
+}
+
+function stopFollowing() {
+    follow = false;
+    mymap.dragging.enable();
+    mymap.scrollWheelZoom.enable();
+    document.getElementById('stopFollowing').style = 'display: none';
 }

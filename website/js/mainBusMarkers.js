@@ -76,7 +76,10 @@ function updateMarkers(data) {
 
                 markerToMove.setOpacity(0.5);
                 markerToMove.setLatLng(newLatLng);
-                //MOVE MAP VIEW IF LOCKED ***************************************************
+                //Move map view if follow is active
+                if (follow) {
+                    mymap.setView(markerToFollow.getLatLng());
+                }
             }
         }
     }
@@ -110,20 +113,6 @@ function removeUselessMarkers(data) {
             }
         }
     }
-}
-
-function removePolyline() {
-    for (x in listMarkersBus) { //For each markers
-        listMarkersBus[x].polyline.eachLayer(layer => layer.remove()); //Remove each line from polyline group
-    }
-}
-
-function removeMarkers() {
-    for (x in listMarkersBus) {
-        listMarkersBus[x].polyline.eachLayer(layer => layer.remove()); //Remove each line from polyline group
-        listMarkersBus[x].remove();
-    }
-    listMarkersBus = [];
 }
 
 //getBusPositionFromServer(); Moved inside getBusListJson

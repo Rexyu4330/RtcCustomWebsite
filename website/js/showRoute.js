@@ -43,17 +43,17 @@ function hideRoute() {
 
 //A METTRE DANS UN AUTRE FICHIER DE SCRIPT************************************************
 function getWaitingTime(popup) {
-    console.log(popup)
+    //console.log(popup)
     if (popup.isOpen()) {
         axios.get(`https://wsmobile.rtcquebec.ca/api/v3/horaire/BorneVirtuelle_ArretParcours?source=sitemobile&noArret=${popup._source.noArret}&noParcours=${popup._source.bus}&codeDirection=${popup._source.dir}`).then(response => {
             printWaitingTime(popup, response.data);
         }).catch(error => {});
-        //setTimeout(() => {getWaitingTime(popup)}, 2000);
+        setTimeout(() => {getWaitingTime(popup)}, 10000);
     }
 }
 
 function printWaitingTime(popup, arret) {
-    console.log(arret);
+    //console.log(arret);
     popup.setContent(popup._source.popupText);
     for (w in arret.horaires) { //For each bus or time, add departure minutes
         popup.setContent(popup.getContent() + '<br>' + arret.horaires[w].departMinutes + ' min');
