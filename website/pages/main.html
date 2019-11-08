@@ -11,9 +11,10 @@
     <body>
         <div id="debug">
             <button id="removeRoute">Cacher la route</button>
-            <button id="getBusPositionFromServer">Force move</button>
             <button id="showPointsVente">Show Points Vente</button>
             <button id="hidePointsVente">Hide Points Vente</button>
+            <button id="enterBackInTime">Enter Back in Time</button>
+            <button id="leaveBackInTime">Leave Back in Time</button>
             <button id="stopFollowing" style="display: none">Stop following</button>
             <select id="mySelect" onchange="changeMapTiles()">
                 <option value="Roads">Roads</option>
@@ -48,6 +49,9 @@
                 </ul>
             </div>
         </div>
+        <div id="backInTime" style="display: none">
+            
+        </div>
         <div id="mapid"></div>
         <!--Javascpir-->
         <!--<script src="//cdn.jsdelivr.net/npm/eruda"></script>
@@ -60,6 +64,7 @@
         <script src="../js/mainBusMarkers.js"></script>
         <script src="../js/showRoute.js"></script>
         <script src="../js/followBus.js"></script>
+        <script src="../js/backInTime.js"></script>
         <script src="../js/buttonControl.js"></script>
         <!--Javascpir-->
     </body>

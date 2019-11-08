@@ -7,10 +7,12 @@ axios.post("/busListJson").then(function(response) {
 var listMarkersBus = [];
 
 function getBusPositionFromServer() {
-    axios.post("/busPosition").then(function(response) {
-        console.log("get: ", response.data);
-        updateMarkers(response.data)
-    }).catch(function (error) {console.log(error)});
+    if (backInTimeLayout == false) {
+        axios.post("/busPosition").then(function(response) {
+            console.log("get: ", response.data);
+            updateMarkers(response.data)
+        }).catch(function (error) {console.log(error)});
+    }
 }
 
 
@@ -18,13 +20,15 @@ function findMarkerById(id) {
     return listMarkersBus.filter(marker => marker.idAutobus == id)[0]
 }
 
-
+var markermoved = false;
 function updateMarkers(data) {
+    markermoved = false;
     for (x in data) {
         for (y in data[x].listBus) {
             let bus = data[x].listBus[y];
             let markerToMove = findMarkerById(bus.idAutobus);
             if (markerToMove == undefined) {
+                markermoved = true;
                 //MAKE NEW MARKER
                 for (v in busListJson) {
                     if (busListJson[v].noParcours == data[x].bus) { //Trouver le busListJson correspondant
@@ -65,7 +69,9 @@ function updateMarkers(data) {
 
                 let latlngs = [oldLatLng,newLatLng];
                 if (oldLatLng.lat != newLatLng[0] || oldLatLng.lng != newLatLng[1]) { //If bus has moved
+                    markermoved = true;
                     let c = L.polyline(latlngs, {color: polylineColors[markerToMove.codeType], opacity: 0.8}).addTo(mymap);
+                    c.markerType = 'polyline';
                     markerToMove.polyline.addLayer(c);
                 }
                 if (markerToMove.polyline.getLayers().length > 10) { //LINE LENGTH
@@ -85,6 +91,11 @@ function updateMarkers(data) {
     }
     ////console.log(listMarkersBus);
     removeUselessMarkers(data);
+    
+    //Add stamp for back in time
+    if (markermoved) {
+        makeBackInTime();
+    }
 }
 
 function removeUselessMarkers(data) {

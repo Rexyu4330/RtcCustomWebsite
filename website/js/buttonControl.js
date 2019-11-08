@@ -6,8 +6,9 @@ mymap.addEventListener('popupopen', function(event) {
 });
 
 document.getElementById("removeRoute").addEventListener("click", hideRoute);
-document.getElementById("getBusPositionFromServer").addEventListener("click", getBusPositionFromServer);
 document.getElementById("stopFollowing").addEventListener("click", stopFollowing);
+document.getElementById("enterBackInTime").addEventListener("click", enterBackInTime);
+document.getElementById("leaveBackInTime").addEventListener("click", leaveBackInTime);
 
 
 document.getElementById("checkboxBus").addEventListener("click", checkboxBus);
