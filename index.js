@@ -11,7 +11,7 @@ app.use(express.static("website"));
 var listChecked = ["800,2","800,3"];
 //Get Bus List
 function getBusList() {
-    /*axios.get("https://wsmobile.rtcquebec.ca/api/v3/horaire/ListeParcours?source=sitemobile").then(response => {
+    /*axios.get("https://wssiteweb.rtcquebec.ca/api/v2/horaire/ListeParcours").then(response => {
         routes = response.data;
         sendBusListJson(routes);
         console.log("SET")
@@ -1808,10 +1808,11 @@ function setupBus() {
 
 var compteur = 0;
 function getBusPos(bus, dir){
-    axios.get(`https://wsmobile.rtcquebec.ca/api/v3//horaire/ListeAutobus_Parcours?source=sitemobile&noParcours=${bus}&codeDirection=${dir}`).then(response => {
+    
+    axios.get(`https://wssiteweb.rtcquebec.ca/api/v2/horaire/ListeAutobus_Parcours/?noParcours=${bus}&codeDirection=${dir}`).then(response => {
         compteur++;
         callback(bus, dir, response.data);
-    }).catch(error => {});
+    }).catch(error => {console.log(error)});
 }
 function callback(bus, dir, data) {
     var line = JSON.parse(`{ "bus":${bus}, "dir":${dir}, "listBus":${JSON.stringify(data)} }`);
